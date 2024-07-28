@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: 'actions/checkout@v3'
       - id: 'auth'
-        name: 'Authentciate to google cloud'
+        name: 'Authentciate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
           token_format: 'access_token'
@@ -29,8 +29,8 @@ jobs:
         run: gcloud auth configure-docker
       - name: Build and push docker image
         run: |
-          docker build -t us.gcr.io/$gcp_PROJECT_ID/tma_front_image:$IMAGE_TAG .
-          docker push us.gcr.io/$gcp_project_ID/tma_front_image:$IMAGE_TAG
+          docker build -t us.gcr.io/$GCP_PROJECT_ID/tma_front_image:$IMAGE_TAG .
+          docker push us.gcr.io/$GCP_PROJECT_ID/tma_front_image:$IMAGE_TAG
         working-directory: ./nodeapp
       - uses: hashicorp/setup-terraform@v2
       - name: Terraform init
@@ -41,7 +41,7 @@ jobs:
           terraform plan \
           -var="region=europe-central1" \
           -var="project_id=$GCP_PROJECT_ID" \
-          -var="container_image=us.gcr.io/$gcp_project_ID/tma_front_image:$IMAGE_TAG" \
+          -var="container_image=us.gcr.io/$GCP_PROJECT_ID/tma_front_image:$IMAGE_TAG" \
           -out=PLAN
         working-directory: ./terraform
       - name: Terraform apply
