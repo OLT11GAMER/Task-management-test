@@ -29,7 +29,7 @@ jobs:
         run: gcloud auth configure-docker
       - name: Build and push docker image
         run: |
-          docker build --it us.gcr.io/$gcp_PROJECT_ID/tma_front_image:$IMAGE_TAG
+          docker build --it us.gcr.io/$gcp_PROJECT_ID/tma_front_image:$IMAGE_TAG .
           docker push us.gcr.io/$gcp_project_ID/tma_front_image:$IMAGE_TAG
         working-directory: ./nodeapp
       - uses: hashicorp/setup-terraform@v2
