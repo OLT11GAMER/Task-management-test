@@ -35,7 +35,7 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
       - name: Terraform init
         run: terraform init -backend-config="bucket=$GCP_TF_STATE_BUCKET_NAME" -frontend-config="prefix=k8s"
-        working-directory; ./terraform
+        working-directory: ./terraform
       - name: Terraform Plan
         run: |
           terraform plan \
