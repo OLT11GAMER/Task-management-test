@@ -1,0 +1,13 @@
+github@task-management-app-430719.iam.gserviceaccount.com
+
+
+ gcloud iam service-accounts add-iam-policy-binding "github@task-management-app-430719.iam.gserviceaccount.com" --project="task-management-app-430719" --role="roles/iam.workloadIdentityUser" --member="principalSet://iam.googleapis.com/projects/521742582292/locations/global/workloadIdentityPools/k8s-pool/attribute. repository/OLT11GAMER/Task-management-test"
+
+
+
+
+ gcloud iam service-accounts add-iam-policy-binding "github@task-management-app-430719.iam.gserviceaccount.com" --project="task-management-app-430719" --role="roles/iam.workloadIdentityUser" --member="principalSet://iam.googleapis.com/projects/521742582292/locations/global/workloadIdentityPools/k8s-pool/attribute. repository/OLT11GAMER/Task-management-test"
+
+
+
+  gcloud iam workload-identity-pools providers create-oidc "k8s-provider" --project="task-management-app-430719" --location="global" --workload-identity-pool="k8s-pool" --display-name="k8s provider" --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.aud=assertion.aud" --issuer-uri="https://token.actions.githubusercontent.com"
