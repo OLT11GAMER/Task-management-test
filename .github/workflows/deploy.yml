@@ -16,14 +16,21 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
-      - uses: 'actions/checkout@v3'
       - id: 'auth'
         name: 'Authentciate to Google Cloud'
-        uses: 'google-github-actions/auth@v1'
+        
+        uses: 'google-github-actions/auth@v0.4.0'
         with:
           token_format: 'access_token'
           workload_identity_provider: 'projects/521742582292/locations/global/workloadIdentityPools/k8s-pool/providers/k8s-provider'
           service_acount: 'github@task-management-app-430719.iam.gserviceaccount.com'
+      - id: get-gke-credentials
+        uses: google-github-actions/get-gke-credentials@v0.4.0
+        with:
+          cluster_name: my-cluster
+          location: us-central1-a
+      - id: get-pods
+        run: kubectl get pods
       - uses: 'google-github-actions/setup-gcloud@v1'
       - name: Docker auth
         run: gcloud auth configure-docker
