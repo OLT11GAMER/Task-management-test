@@ -30,7 +30,6 @@ jobs:
           location: us-central1-a
       - id: get-pods
         run: kubectl get pods
-      - uses: 'google-github-actions/setup-gcloud@v1'
       - name: Docker auth
         run: gcloud auth configure-docker
       - name: Build and push docker image
