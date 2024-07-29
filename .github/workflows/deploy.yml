@@ -23,7 +23,7 @@ jobs:
         with:
           token_format: 'access_token'
           workload_identity_provider: 'projects/521742582292/locations/global/workloadIdentityPools/k8s-pool/providers/k8s-provider'
-          service_acount: 'github@task-management-app-430719.iam.gserviceaccount.com'
+          service_account: 'github@task-management-app-430719.iam.gserviceaccount.com'
       - name: Docker auth
         run: gcloud auth configure-docker
       - name: Build and push docker image
