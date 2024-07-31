@@ -24,15 +24,14 @@ jobs:
         working-directory: ./
       - id: 'auth'
         name: 'Authentciate to Google Cloud'
-        uses: 'google-github-actions/auth@v3'
+        uses: 'google-github-actions/auth@v1'
         with:
           create_credentials_file: 'true'
           workload_identity_provider: 'projects/521742582292/locations/global/\
           workloadIdentityPools/gh-identity-pool/providers/gh-provider'
           service_account: 'github@task-management-app-430719.iam.gserviceaccount.com'
       - name: Docker auth
-        run: gcloud auth configure-docker
-
+        run: gcloud auth configure-docker europe-docker.pkg.dev
       - name: Build and push docker image
         run: |
           docker build -t eu.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG .
