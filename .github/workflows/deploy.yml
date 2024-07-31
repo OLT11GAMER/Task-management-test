@@ -30,11 +30,11 @@ jobs:
         run: |
           docker build -t us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG .
           docker push us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG
-        # working-directory: 
+        working-directory: ./src/nodeapp
       - uses: hashicorp/setup-terraform@v2
       - name: Terraform init
         run: terraform init -backend-config="bucket=$GCP_TF_STATE_BUCKET_NAME" -frontend-config="prefix=k8s"
-        working-directory: ./terraform
+        working-directory: ./src/terraform
       - name: Terraform Plan
         run: |
           terraform plan \
@@ -42,6 +42,6 @@ jobs:
           -var="project_id=task-management-app-430719" \
           -var="container_image=us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG" \
           -out=PLAN
-        working-directory: ./terraform
+        working-directory: ./src/terraform
       - name: Terraform apply
         run: terform apply PLAN
