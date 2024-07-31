@@ -16,6 +16,12 @@ jobs:
       contents: 'read'
       id-token: 'write'
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: List files for debugging
+        run: ls -R
+        working-directory: ./
       - id: 'auth'
         name: 'Authentciate to Google Cloud'
         uses: 'google-github-actions/auth@v4'
