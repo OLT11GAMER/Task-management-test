@@ -32,10 +32,10 @@ jobs:
           service_account: 'github@task-management-app-430719.iam.gserviceaccount.com'
       - name: Docker auth
         run: gcloud auth configure-docker
+
       - name: Build and push docker image
         run: |
           docker build -t us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG .
-          gcloud auth configure-docker
           docker push us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG
         working-directory: nodeapp
       - uses: hashicorp/setup-terraform@v2
