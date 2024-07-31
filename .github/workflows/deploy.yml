@@ -24,7 +24,7 @@ jobs:
         working-directory: ./
       - id: 'auth'
         name: 'Authentciate to Google Cloud'
-        uses: 'google-github-actions/auth@v4'
+        uses: 'google-github-actions/auth@v1'
         with:
           create_credentials_file: 'true'
           workload_identity_provider: 'projects/521742582292/locations/global/\
@@ -37,7 +37,7 @@ jobs:
           docker build -t us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG .
           docker push us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG
         working-directory: nodeapp
-      - uses: hashicorp/setup-terraform@v4
+      - uses: hashicorp/setup-terraform@v2
       - name: Terraform init
         run: terraform init -backend-config="bucket=$GCP_TF_STATE_BUCKET_NAME" -frontend-config="prefix=k8s"
         working-directory: terraform
