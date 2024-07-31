@@ -47,7 +47,7 @@ jobs:
           terraform plan \
           -var="region=europe-central1" \
           -var="project_id=task-management-app-430719" \
-          -var="container_image=us.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG" \
+          -var="container_image=eu.gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG" \
           -out=PLAN
         working-directory: terraform
       - name: Terraform apply
