@@ -6,7 +6,7 @@ on:
 env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GCP_TF_STATE_BUCKET_NAME: ${{ secrets.GCP_TF_STATE_BUCKET }}
-
+  GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
 jobs:
   deploy: 
     runs-on: ubuntu-latest
@@ -30,6 +30,16 @@ jobs:
           workload_identity_provider: 'projects/521742582292/locations/global/\
           workloadIdentityPools/gh-identity-pool/providers/gh-provider'
           service_account: 'github@task-management-app-430719.iam.gserviceaccount.com'
+      - name: code checkout
+        uses: actions/checkout@v2
+
+      - name: install the gcloud cli
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          project_id: $GCP_PROJECT_ID
+          service_account_key: $GOOGLE_SERVICE_ACCOUNT
+          install_components: 'gke-gcloud-auth-plugin'
+          export_default_credentials: true
       - name: Docker auth
         run: gcloud auth configure-docker europe-central2-docker.pkg.dev
       - name: Build and push Docker image
