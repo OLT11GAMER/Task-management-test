@@ -30,29 +30,29 @@ resource "google_container_cluster" "default" {
     command = "sleep 90"
   }
 }
-resource "google_compute_instance" "default" {
-  name         = "terraform-vm"
-  machine_type = "e2-medium"
-  zone         = "europe-central2-a"
+# resource "google_compute_instance" "default" {
+#   name         = "terraform-vm"
+#   machine_type = "e2-medium"
+#   zone         = "europe-central2-a"
 
-  boot_disk {
-    initialize_params {
-      image = "ubuntu-2004-focal-v20210720"
-    }
-  }
+#   boot_disk {
+#     initialize_params {
+#       image = "ubuntu-2004-focal-v20210720"
+#     }
+#   }
 
-  network_interface {
-    network = "default"
+#   network_interface {
+#     network = "default"
 
-    access_config {
+#     access_config {
       
-    }
-  }
+#     }
+#   }
 
-  # metadata = {
-  #   ssh-keys = "username:${file(var.ssh_public_key_path)}"
-  # }
-}
+#   # metadata = {
+#   #   ssh-keys = "username:${file(var.ssh_public_key_path)}"
+#   # }
+# }
 
 resource "google_compute_firewall" "default" {
   name    = "default-allow-http-https"
