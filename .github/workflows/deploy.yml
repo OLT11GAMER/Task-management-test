@@ -27,12 +27,11 @@ jobs:
           workloadIdentityPools/gh-identity-pool/providers/gh-provider'
           service_account: 'github-860@task-management-app-430719.iam.gserviceaccount.com'
       - name: Docker auth
-        run: gcloud auth configure-docker europe-central2-docker.pkg.dev
+        run: gcloud auth configure-docker
       - name: Build and push Docker image
         run: |
-          gcloud config set account github-860@task-management-app-430719.iam.gserviceaccount.com
-          docker build -t europe-central2-docker.pkg.dev/task-management-app-430719/task-management-test/tma_front_image:$IMAGE_TAG .
-          docker push europe-central2-docker.pkg.dev/task-management-app-430719/task-management-test/tma_front_image:$IMAGE_TAG
+          docker build -t gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG .
+          docker push gcr.io/task-management-app-430719/tma_front_image:$IMAGE_TAG
         working-directory: nodeapp
       - uses: hashicorp/setup-terraform@v2
       - name: Terraform init
