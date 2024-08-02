@@ -41,6 +41,8 @@ jobs:
         -var="credentials=${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" \
         -out=PLAN
       working-directory: terraform
+    - name: Terraform upgrade
+      run: terraform init -upgrade
     - name: Terraform apply
       run: terform apply PLAN
 
