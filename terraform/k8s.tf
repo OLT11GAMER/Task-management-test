@@ -24,7 +24,7 @@ resource "kubernetes_deployment" "name"{
             }
             spec{
                 contaniner {
-                    name = "tma-front-container"
+                    name = "tma_front_image"
                     image = var.container_image
                     port {
                         container_port = 80
