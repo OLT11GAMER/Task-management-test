@@ -7,3 +7,6 @@ variable "region"{
 variable "container_image"{
     
 }
+variable "credentials"{
+    
+}
