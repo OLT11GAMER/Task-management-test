@@ -4,13 +4,12 @@ on:
   push:
     branches:
     - 'main'
-env:
-  GCP_TF_STATE_BUCKET_NAME: ${{ secrets.GCP_TF_STATE_BUCKET }}
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
       IMAGE_TAG: ${{ github.sha }}
+      GCP_TF_STATE_BUCKET_NAME: ${{ secrets.GCP_TF_STATE_BUCKET }}
     steps:
 
     - name: code checkout
@@ -29,19 +28,19 @@ jobs:
         gcloud auth configure-docker europe-central2-docker.pkg.dev
         docker build -t europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG .
         docker push europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG
-      - name: Terraform init
-        run: terraform init -backend-config="bucket=$GCP_TF_STATE_BUCKET_NAME" -frontend-config="prefix=k8s"
-        working-directory: terraform
-      - name: Terraform Plan
-        run: |
-          terraform plan \
-          -var="region=europe-central2" \
-          -var="project_id=task-management-app-430719" \
-          -var="container_image=europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG" \
-          -out=PLAN
-        working-directory: terraform
-      - name: Terraform apply
-        run: terform apply PLAN
+    - name: Terraform init
+      run: terraform init -backend-config="bucket=$GCP_TF_STATE_BUCKET_NAME" -frontend-config="prefix=k8s"
+      working-directory: terraform
+    - name: Terraform Plan
+      run: |
+        terraform plan \
+        -var="region=europe-central2" \
+        -var="project_id=task-management-app-430719" \
+        -var="container_image=europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG" \
+        -out=PLAN
+      working-directory: terraform
+    - name: Terraform apply
+      run: terform apply PLAN
 
 # name: Deploy to Kubernetes
 # on:
