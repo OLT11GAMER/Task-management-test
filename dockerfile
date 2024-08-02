@@ -1,7 +1,7 @@
 
 FROM node:14-alpine
 
-# WORKDIR /
+WORKDIR nodeapp
 
 # COPY package*.json ./
 # RUN npm install
