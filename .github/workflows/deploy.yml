@@ -18,10 +18,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: List files for debugging
-        run: ls -R
-        working-directory: ./
       - id: 'auth'
         name: 'Authentciate to Google Cloud'
         uses: 'google-github-actions/auth@v1'
@@ -30,8 +26,6 @@ jobs:
           workload_identity_provider: 'projects/521742582292/locations/global/\
           workloadIdentityPools/gh-identity-pool/providers/gh-provider'
           service_account: 'github-860@task-management-app-430719.iam.gserviceaccount.com'
-      - name: code checkout
-        uses: actions/checkout@v2
       - name: Docker auth
         run: gcloud auth configure-docker europe-central2-docker.pkg.dev
       - name: Build and push Docker image
