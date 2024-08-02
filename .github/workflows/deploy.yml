@@ -29,6 +29,8 @@ jobs:
         docker build -t europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG .
         docker push europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG
     - uses: hashicorp/setup-terraform@v2
+    - name: Terraform upgrade
+      run: terraform init -upgrade
     - name: Terraform init
       run: terraform init -backend-config="bucket=$GCP_TF_STATE_BUCKET_NAME" -backend-config="prefix=k8s"
       working-directory: terraform
@@ -41,8 +43,6 @@ jobs:
         -var="credentials=${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" \
         -out=PLAN
       working-directory: terraform
-    - name: Terraform upgrade
-      run: terraform init -upgrade
     - name: Terraform apply
       run: terform apply PLAN
 
