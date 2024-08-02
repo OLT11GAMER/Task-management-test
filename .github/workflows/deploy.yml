@@ -8,13 +8,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_TAG: ${{ github.sha }}
     steps:
 
     - name: code checkout
       uses: actions/checkout@v2
 
     - name: install the gcloud cli
-      uses: google-github-actions/setup-gcloud@v2.1.0
+      uses: google-github-actions/setup-gcloud@v0
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
         service_account_key: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
@@ -26,8 +28,8 @@ jobs:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
       run: |
         gcloud auth configure-docker us-central1-docker.pkg.dev
-        docker build -t us-central1-docker.pkg.dev/$GCP_PROJECT_ID/demo/nginx:latest .
-        docker push us-central1-docker.pkg.dev/$GCP_PROJECT_ID/demo/nginx:latest
+        docker build -t europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG .
+        docker push europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG
 
     - name: deploy to gke
       env:
