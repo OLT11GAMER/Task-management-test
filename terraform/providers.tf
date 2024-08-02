@@ -17,7 +17,7 @@ terraform {
   }
 }
 provider "google" {
-  credentials = "./gc_key.json"
+  credentials = "var.credentials"
   project     = "task-management-app-430719"
   region      = "europe-central2"
   zone        = "europe-central2-a"
@@ -31,7 +31,5 @@ provider "kubernetes"{
   token = data.google_client_config.current.access_token
   client_certifiate = base64code(google_container_cluster.default.master_auth[0].client_certificate)
   cleint_key = base64code(google_container_cluster.default.master_auth[0].client_key)
-  cluster_ca_certificate = base64code(
-    base64code(google_container_cluster.default.master_auth[0].cluster_ca_certificate)
-  )
+  cluster_ca_certificate = base64code(base64code(google_container_cluster.default.master_auth[0].cluster_ca_certificate))
 }
