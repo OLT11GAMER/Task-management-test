@@ -38,12 +38,11 @@ jobs:
         -var="region=europe-central2" \
         -var="project_id=task-management-app-430719" \
         -var="container_image=europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG" \
-         -var="credentials=${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" \
+        -var="credentials=${{ secrets.GOOGLE_SERVICE_ACCOUNT }}" \
         -out=PLAN
       working-directory: terraform
-    - name: Terraform Apply
-      run: terraform apply -auto-approve PLAN
-      working-directory: terraform
+    - name: Terraform apply
+      run: terform apply PLAN
 
 # name: Deploy to Kubernetes
 # on:

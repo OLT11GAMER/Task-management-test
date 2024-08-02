@@ -17,9 +17,9 @@ terraform {
   }
 }
 provider "google" {
+  project = var.project_id
   credentials = "var.credentials"
-  project     = "task-management-app-430719"
-  region      = "europe-central2"
+  region  = var.region
   zone        = "europe-central2-a"
 }
 
