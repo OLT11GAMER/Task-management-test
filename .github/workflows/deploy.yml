@@ -73,7 +73,6 @@ jobs:
         run: |
           docker build -t europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG .
           sudo -u docker push europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG
-        working-directory: nodeapp
       - uses: hashicorp/setup-terraform@v2
       - name: Terraform init
         run: terraform init -backend-config="bucket=$GCP_TF_STATE_BUCKET_NAME" -frontend-config="prefix=k8s"
