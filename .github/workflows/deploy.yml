@@ -27,7 +27,7 @@ jobs:
       env:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
       run: |
-        gcloud auth configure-docker us-central1-docker.pkg.dev
+        gcloud auth configure-docker europe-central2-docker.pkg.dev
         docker build -t europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG .
         docker push europe-central2-docker.pkg.dev/task-management-app-430719/test/tma_front_image:$IMAGE_TAG
 
